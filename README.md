@@ -1,9 +1,9 @@
 # mbrData
 **DISCLAIMER:** This program still contains major security issues (memory management, etc.). For now, only the Windows version is available (I'll do a Linux version too).<br>
-[Documentation](Documentation)<br>
-    [Attributes](Attributes)<br>
-    [Syntax](Syntax)<br>
-[Changelog](Changelog)
+[Documentation](mbrData#Documentation)<br>
+    [Attributes](mbrData#Attributes)<br>
+    [Syntax](mbrData#Syntax)<br>
+[Changelog](mbrData#Changelog)
 ## Documentation
 ### Attributes
 The current version (1.0.0) contains the following attributes:<br>
