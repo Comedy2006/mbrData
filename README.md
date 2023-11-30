@@ -1,8 +1,8 @@
 # mbrData
 **DISCLAIMER:** This program still contains major security issues (memory management, etc.). For now, only the Windows version is available (I'll do a Linux version too).<br>
-[Documentation](Documentation)
-    [Attributes](Attributes)
-    [Syntax](Syntax)
+[Documentation](Documentation)<br>
+    [Attributes](Attributes)<br>
+    [Syntax](Syntax)<br>
 [Changelog](Changelog)
 ## Documentation
 ### Attributes
