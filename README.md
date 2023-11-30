@@ -15,7 +15,8 @@ The current version (1.0.0) contains the following attributes:<br>
 `-a -s filename(and extension)`<br>
 `-a -t`<br>
 `-c -s filename(and extension) (number of the physical disk)`<br>
-`-c -t (number of the physical disk)`<br><br>
+`-c -t (number of the physical disk)`<br>
+
 Example:<br>
 `file.exe -a -s output.txt`<br>
 `file.exe -c -s output.txt 0` (0 stands for \\\\.\\PhysicalDrive0)<br>
