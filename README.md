@@ -5,6 +5,7 @@
     [Syntax](README.md#Syntax)<br>
 [Changelog](README.md#Changelog)
 ## Documentation
+Btw you need to run this program in admin mode, I messed up the manifest...
 ### Attributes
 The current version (1.0.0) contains the following attributes:<br>
 `-a`: program automatically tries to determine the bootable drive<br>
@@ -22,4 +23,5 @@ Example:<br>
 `file.exe -c -s output.txt 0` (0 stands for \\\\.\\PhysicalDrive0)<br>
 
 ## Changelog
-Version 1.0.0: Initial release
+Version 1.0.0: Initial release<br>
+Plans for next update: fix the Manifest file so I can run this program in admin mode
