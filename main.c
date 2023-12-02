@@ -3,9 +3,16 @@
 #include <stdlib.h>
 #include <windows.h>
 
+#define MAX_LEN 100
+#define MAX_LST 20
+
 int readSector(char*, unsigned int, char*);
 void writeToFile(char*, char**);
 void outputTerminal(char*, char*);
+void shell();
+void parser(char*, char**);
+void commands(char**);
+void exec_cmd(char**);
 
 // -a: automatically determine the bootable drive
 // -c choose the drive you want to scan (custom scan)
@@ -14,6 +21,10 @@ void outputTerminal(char*, char*);
 // search up the documentation on GitHub if there are any further questions
 
 int main(int argc, char* argv[]) {
+    if (argc == 1){
+        shell();
+        return 0;
+    }
     char* buffer = malloc(512);
     char* dsk[22];
     if (strcmp(argv[1], "-a") == 0 && (argc == 3 || argc == 4)){ // Syntax: executable -a -s/-t file.txt (if -s)
@@ -106,4 +117,61 @@ void outputTerminal(char* buffer, char* dsk) {
         }
     }
     printf("-----------------------------------------------------------\n");
+}
+
+// Shell is WIP ==> doesn't contain any functionalities yet
+
+void shell(){
+    char cmd[MAX_LEN];
+    char *parsecmd[MAX_LST];
+    printf("mbrData> ");
+    fgets(cmd, MAX_LEN, stdin);
+    cmd[strlen(cmd) - 1] = '\0';
+    parser(cmd, parsecmd);
+    commands(parsecmd[0]);
+    exec_cmd(parsecmd);
+    
+    shell();
+}
+
+// need to parse the commands or else the shell won't work as expected
+void parser(char* cmd, char** parsedcmd){
+    for(int i = 0; i < MAX_LST; i++){
+        parsedcmd[i] = strtok(cmd, " ");
+        if(parsedcmd[i] == NULL){
+            break;
+        }
+        cmd = NULL;
+    }
+}
+
+void commands(char** cmd){
+    if (strcmp(cmd, "h") == 0 || strcmp(cmd, "?") == 0){
+        printf( "ls dsk             list every available physical disk on this device\n"
+                "sel dsk [NUMBER]   select a physical drive\n"
+                "exit               exit the program\n");
+    }else if(strcmp(cmd, "exit") == 0){
+        exit(0);
+    }else if(strcmp(cmd, "ls_dsk") == 0){
+        printf("Available Disks:\n");
+        system("wmic diskdrive list brief");
+    }
+}
+
+void exec_cmd(char** parsecmd){
+    STARTUPINFO sinfo;
+    PROCESS_INFORMATION pinfo;
+
+    ZeroMemory(&sinfo, sizeof(sinfo));
+    sinfo.cb = sizeof(sinfo);
+    ZeroMemory(&pinfo, sizeof(pinfo));
+    if (CreateProcess(NULL, parsecmd[0], NULL, NULL, FALSE, 0, NULL, NULL, &sinfo, &pinfo)) {
+      printf("CreateProcess failed (%d).\n", GetLastError());
+      return;
+    }
+
+    WaitForSingleObject(pinfo.hProcess, INFINITE);
+
+    CloseHandle(pinfo.hProcess);
+    CloseHandle(pinfo.hThread);
 }
