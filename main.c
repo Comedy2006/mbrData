@@ -14,6 +14,8 @@ void parser(char*, char**);
 void commands(char**);
 void exec_cmd(char**);
 
+int diskNumber;
+
 // -a: automatically determine the bootable drive
 // -c choose the drive you want to scan (custom scan)
 // -t terminal output
@@ -128,7 +130,7 @@ void shell(){
     fgets(cmd, MAX_LEN, stdin);
     cmd[strlen(cmd) - 1] = '\0';
     parser(cmd, parsecmd);
-    commands(parsecmd[0]);
+    commands(parsecmd);
     exec_cmd(parsecmd);
     
     shell();
@@ -150,11 +152,13 @@ void commands(char** cmd){
         printf( "ls dsk             list every available physical disk on this device\n"
                 "sel dsk [NUMBER]   select a physical drive\n"
                 "exit               exit the program\n");
-    }else if(strcmp(cmd, "exit") == 0){
+    }else if(strcmp(cmd[0], "exit") == 0){
         exit(0);
-    }else if(strcmp(cmd, "ls_dsk") == 0){
+    }else if((strcmp(cmd[0], "ls") == 0) && (strcmp(cmd[1], "dsk") == 0)){
         printf("Available Disks:\n");
         system("wmic diskdrive list brief");
+    }else if((strcmp(cmd[0], "sel") == 0) && (strcmp(cmd[1], "dsk") == 0)){
+        diskNumber = atoi(cmd[2]);
     }
 }
 
