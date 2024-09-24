@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
         return 0;
     }
     char* buffer = malloc(512);
-    char* dsk[22];
+    char* dsk;
     if (strcmp(argv[1], "-a") == 0 && (argc == 3 || argc == 4)){ // Syntax: executable -a -s/-t file.txt (if -s)
         for (int i = 0; i < 26; i++){ // I don't really expect anyone who owns a PC or sth to have more than like 7 drives in it. Still gonna run thorugh 26 of 'em
             sprintf(dsk, "\\\\.\\PhysicalDrive%d", i);
@@ -148,7 +148,7 @@ void parser(char* cmd, char** parsedcmd){
 }
 
 void commands(char** cmd){
-    if (strcmp(cmd, "h") == 0 || strcmp(cmd, "?") == 0){
+    if (strcmp(*cmd, "h") == 0 || strcmp(*cmd, "?") == 0){
         printf( "ls dsk             list every available physical disk on this device\n"
                 "sel dsk [NUMBER]   select a physical drive\n"
                 "exit               exit the program\n");
